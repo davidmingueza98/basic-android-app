@@ -45,7 +45,7 @@ public class Main2Activity extends AppCompatActivity {
                 String password = editText_password.getText().toString();
                 if (name.equals("") && password.equals("")) {
                     if( mNotificationManager!= null) mNotificationManager.cancel(mId);
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), DrawerActivity.class);
                     startActivity(intent);
                 }
                 else{
