@@ -211,7 +211,7 @@ public class FragmentCalculadora extends Fragment {
         button_sqrt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-                if (first && !op) {
+                if (first && !op &&!number_put) {
                     Button b = (Button) view; // Castear la vista del onClick a botón
                     textViewOp.append(b.getText());
                     sqrt = true;
@@ -240,6 +240,8 @@ public class FragmentCalculadora extends Fragment {
             d *= result;
         } else if (Objects.equals(operation, "^")) {
             d = Math.pow(result,d);
+        } else if (sqrt){
+            d = Math.sqrt(d);
         }
         return d;
     }

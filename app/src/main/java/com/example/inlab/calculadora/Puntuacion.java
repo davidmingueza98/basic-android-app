@@ -1,6 +1,8 @@
 package com.example.inlab.calculadora;
 
-public class Puntuacion {
+import io.realm.RealmObject;
+
+public class Puntuacion extends RealmObject{
     private String fecha;
     private String puntuacion;
 
