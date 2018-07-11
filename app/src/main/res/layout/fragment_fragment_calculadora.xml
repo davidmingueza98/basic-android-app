@@ -127,12 +127,12 @@
                 android:text="3" />
 
             <Button
-                android:id="@+id/button14"
+                android:id="@+id/button23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/holo_orange_light"
-                android:text="-" />
+                android:text="^" />
         </LinearLayout>
 
         <LinearLayout
@@ -164,13 +164,12 @@
                 android:text="AC" />
 
             <Button
-                android:id="@+id/button18"
+                android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/holo_orange_light"
-                android:text="+" />
-
+                android:text="√" />
         </LinearLayout>
 
         <LinearLayout
@@ -186,6 +185,22 @@
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/darker_gray"
                 android:text="=" />
+
+            <Button
+                android:id="@+id/button18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_orange_light"
+                android:text="+" />
+
+            <Button
+                android:id="@+id/button14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_orange_light"
+                android:text="-" />
 
         </LinearLayout>
 

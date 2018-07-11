@@ -18,7 +18,7 @@ import java.util.Objects;
  */
 public class FragmentCalculadora extends Fragment {
     Button button0,button1,button2,button3,button4,button5,button6,button7,button8,button9;
-    Button button_add,button_sub,button_div,button_mult,button_del,button_eq,button_coma;
+    Button button_add,button_sub,button_div,button_mult,button_del,button_eq,button_coma,button_pow,button_sqrt;
 
     //Intent intent = new Intent(Intent: ACTION_DIAL, Uri.parse(NUMERO_TELEFONO)).
 
@@ -33,6 +33,8 @@ public class FragmentCalculadora extends Fragment {
 
     boolean negative = false;
     boolean point = false;
+
+    boolean sqrt = false;
 
     Double d=0.0;
     String num2 = "";
@@ -69,6 +71,8 @@ public class FragmentCalculadora extends Fragment {
         button_del = view.findViewById(R.id.button17);
         button_eq = view.findViewById(R.id.button21);
         button_coma = view.findViewById(R.id.button15);
+        button_pow = view.findViewById(R.id.button23);
+        button_sqrt = view.findViewById(R.id.button2);
 
         textViewResult = view.findViewById(R.id.textViewResult);
         textViewOp = view.findViewById(R.id.textViewOp);
@@ -98,7 +102,7 @@ public class FragmentCalculadora extends Fragment {
                      if (op && !nan) {
                         //int d2 = d.intValue();
                         //textViewResult.setText(String.valueOf(d2));
-                        textViewResult.setText(String.format("%.7f", d));
+                        textViewResult.setText(String.format("%.6f", d));
                         equal = true;
                         point = false;
                     }
@@ -123,19 +127,16 @@ public class FragmentCalculadora extends Fragment {
         View.OnClickListener appendOperation = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (number_put) {
+                if (number_put && !sqrt) {
                     Button b = (Button) view; // Castear la vista del onClick a botón
                     textViewOp.append(b.getText());
-                    String aux = b.getText().toString();
-                    if (op && aux.equals("-")) negative = true;
-                    else {
-                        operation = b.getText().toString(); // Leer el texto de un botón
-                        num2 = "";
-                        result = d;
-                        first = true;
-                        first_zero = false;
-                        op = true;
-                    }
+                    operation = b.getText().toString(); // Leer el texto de un botón
+                    num2 = "";
+                    result = d;
+                    first = true;
+                    first_zero = false;
+                    op = true;
+
                 }
             }
         };
@@ -144,6 +145,7 @@ public class FragmentCalculadora extends Fragment {
         button_sub.setOnClickListener(appendOperation);
         button_div.setOnClickListener(appendOperation);
         button_mult.setOnClickListener(appendOperation);
+        button_pow.setOnClickListener(appendOperation);
 
 
         View.OnClickListener appendClear = new View.OnClickListener() {
@@ -165,6 +167,7 @@ public class FragmentCalculadora extends Fragment {
                     nan = false;
                     first = true;
                     first_zero=false;
+                    sqrt = false;
                 }
                 else if (equal){
                     if(nan) {
@@ -178,6 +181,7 @@ public class FragmentCalculadora extends Fragment {
                         equal = false;
                         op = false;
                         point = false;
+                        sqrt = false;
                         operation = "";
 
                         if (d == 0) first_zero = true;
@@ -204,6 +208,17 @@ public class FragmentCalculadora extends Fragment {
             }
         });
 
+        button_sqrt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View view) {
+                if (first && !op) {
+                    Button b = (Button) view; // Castear la vista del onClick a botón
+                    textViewOp.append(b.getText());
+                    sqrt = true;
+                }
+            }
+        });
+
 
 
         return view;
@@ -223,6 +238,8 @@ public class FragmentCalculadora extends Fragment {
             else d = result / d;
         } else if (Objects.equals(operation, "x")) {
             d *= result;
+        } else if (Objects.equals(operation, "^")) {
+            d = Math.pow(result,d);
         }
         return d;
     }
