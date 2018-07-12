@@ -57,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                     realm = Realm.getDefaultInstance();
                     userResults = realm.where(User.class).equalTo("username", name).findAll(); //search username in database
                     if (userResults.isEmpty()) {//empty=not results so it does not exist
+                        if (error) error = false; //The registration is correct
                         User rookie = new User(name,password);
                         saveUserToRealm(rookie); //store in the database
 

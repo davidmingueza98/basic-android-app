@@ -53,8 +53,10 @@ public class Main2Activity extends AppCompatActivity {
                 if (!name.isEmpty() && !password.isEmpty()) {
                     userResults = realm.where(User.class).equalTo("username",name).findAll(); //search username in database
                     if (!userResults.isEmpty() && userResults.first().getPassword().equals(password)){ //if the password match then login
+                        if(error) error = false; //The login is correct
                         if( mNotificationManager!= null) mNotificationManager.cancel(mId); //cancel the error notificaction if necessary
                         Intent intent = new Intent(getApplicationContext(), DrawerActivity.class);
+                        intent.putExtra("user",name);
                         startActivity(intent);
                     }
                     else error = true;

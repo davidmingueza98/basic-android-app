@@ -1,7 +1,10 @@
 package com.example.inlab.calculadora;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -19,6 +23,8 @@ import java.util.Objects;
 public class FragmentCalculadora extends Fragment {
     Button button0,button1,button2,button3,button4,button5,button6,button7,button8,button9;
     Button button_add,button_sub,button_div,button_mult,button_del,button_eq,button_coma,button_pow,button_sqrt;
+
+    FloatingActionButton call;
 
     //Intent intent = new Intent(Intent: ACTION_DIAL, Uri.parse(NUMERO_TELEFONO)).
 
@@ -73,6 +79,7 @@ public class FragmentCalculadora extends Fragment {
         button_coma = view.findViewById(R.id.button15);
         button_pow = view.findViewById(R.id.button23);
         button_sqrt = view.findViewById(R.id.button2);
+        call = view.findViewById(R.id.floatingActionButton);
 
         textViewResult = view.findViewById(R.id.textViewResult);
         textViewOp = view.findViewById(R.id.textViewOp);
@@ -99,7 +106,7 @@ public class FragmentCalculadora extends Fragment {
 
                     d = performOperation();
 
-                     if (op && !nan) {
+                     if ((op || sqrt) && !nan) {
                         //int d2 = d.intValue();
                         //textViewResult.setText(String.valueOf(d2));
                         textViewResult.setText(String.format("%.6f", d));
@@ -211,11 +218,24 @@ public class FragmentCalculadora extends Fragment {
         button_sqrt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-                if (first && !op &&!number_put) {
+                if (first && !op && !number_put) {
                     Button b = (Button) view; // Castear la vista del onClick a botón
                     textViewOp.append(b.getText());
                     sqrt = true;
                 }
+            }
+        });
+
+        call.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String aux = textViewOp.getText().toString();
+                if (number_put && !point && !op && !sqrt) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + aux));
+                    startActivity(intent);
+                }
+                else Toast.makeText(getActivity(),"Incorrect number", Toast.LENGTH_LONG).show();
+
             }
         });
 
