@@ -42,11 +42,15 @@ public class FragmentCalculadora extends Fragment {
 
     boolean sqrt = false;
 
+    boolean first_negative = true;
+
     Double d=0.0;
     String num2 = "";
     String operation = "";
     TextView textViewResult;
     TextView textViewOp;
+
+    String last="";
 
     public FragmentCalculadora() {
         // Required empty public constructor
@@ -102,7 +106,10 @@ public class FragmentCalculadora extends Fragment {
                     textViewOp.append(b.getText());
                     num2 += number; // Leer el texto de un botón
 
-                    //if(negative) num2 = "-" + num2;
+                    if(negative) {
+                        num2 = "-" + num2;
+                        negative = false;
+                    }
 
                     d = performOperation();
 
@@ -134,17 +141,29 @@ public class FragmentCalculadora extends Fragment {
         View.OnClickListener appendOperation = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (number_put && !sqrt) {
-                    Button b = (Button) view; // Castear la vista del onClick a botón
+                Button b = (Button) view; // Castear la vista del onClick a botón
+                String aux = b.getText().toString(); // Leer el texto de un botón
+                if(!number_put && aux.equals("-") && !last.equals("-")){
+                    num2 = "-";
                     textViewOp.append(b.getText());
-                    operation = b.getText().toString(); // Leer el texto de un botón
-                    num2 = "";
-                    result = d;
                     first = true;
-                    first_zero = false;
-                    op = true;
-
                 }
+                else if (number_put && !sqrt && (!op || (aux.equals("-") && !last.equals("-")))){
+                    if (op && aux.equals("-")) {
+                        negative = true;
+                        textViewOp.append(b.getText());
+                    }
+                    else{
+                        operation = aux; // Leer el texto de un botón
+                        textViewOp.append(b.getText());
+                        num2 = "";
+                        result = d;
+                        first = true;
+                        first_zero = false;
+                        op = true;
+                    }
+                }
+                last = aux;
             }
         };
 
@@ -175,6 +194,8 @@ public class FragmentCalculadora extends Fragment {
                     first = true;
                     first_zero=false;
                     sqrt = false;
+                    negative=false;
+                    first_negative = true;
                 }
                 else if (equal){
                     if(nan) {
@@ -189,6 +210,7 @@ public class FragmentCalculadora extends Fragment {
                         op = false;
                         point = false;
                         sqrt = false;
+                        first_negative = true;
                         operation = "";
 
                         if (d == 0) first_zero = true;

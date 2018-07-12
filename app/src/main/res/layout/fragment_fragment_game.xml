@@ -23,7 +23,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:scaleType="fitCenter"
-                android:src="@drawable/Kappa" />
+                android:src="@drawable/kappa" />
         </LinearLayout>
 
         <LinearLayout
