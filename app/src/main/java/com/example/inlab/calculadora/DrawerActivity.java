@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,14 +24,15 @@ import com.example.inlab.calculadora.Retrofit.PostPuntuacion;
 import com.example.inlab.calculadora.Retrofit.Puntuacione;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     DrawerLayout drawer;
     NavigationView navigationView;
     String user;
+    Toolbar toolbar;
+
+    Integer selected_item;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +77,7 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
          });
          */
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -94,7 +97,7 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
         TextView textViewUser = navigationView.getHeaderView(0).findViewById(R.id.textViewUser);
-        textViewUser.setText(user);
+        textViewUser.setText(user); //Escribe el nombre del usuario
 
     }
 
@@ -104,10 +107,23 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        selected_item = id;
 
         Fragment f = null;
         navigationView.setCheckedItem(id);
-        if (id == R.id.nav_gallery) f = new FragmentCalculadora();
+        if (id == R.id.nav_calculator) {
+            toolbar.setTitle("Calculadora");
+            f = new FragmentCalculadora();
+        }
+        if (id == R.id.nav_game) {
+            Toast.makeText(getApplicationContext(),"Do you want to play a game?", Toast.LENGTH_LONG).show();
+            toolbar.setTitle("Game");
+            f = new FragmentGame();
+        }
+        if (id == R.id.nav_ranking) {
+            toolbar.setTitle("Ranking");
+            f = new FragmentPuntuaciones();
+        }
         if (id == R.id.nav_logout) {
             Toast.makeText(getApplicationContext(),"See you soon " + user, Toast.LENGTH_LONG).show();
             finish();
@@ -121,6 +137,16 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        invalidateOptionsMenu();
         return true;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+
 }
+

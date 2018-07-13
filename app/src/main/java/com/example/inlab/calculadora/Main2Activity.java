@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
@@ -53,6 +54,7 @@ public class Main2Activity extends AppCompatActivity {
                 if (!name.isEmpty() && !password.isEmpty()) {
                     userResults = realm.where(User.class).equalTo("username",name).findAll(); //search username in database
                     if (!userResults.isEmpty() && userResults.first().getPassword().equals(password)){ //if the password match then login
+                        guarda_shared_preferences();
                         if(error) error = false; //The login is correct
                         if( mNotificationManager!= null) mNotificationManager.cancel(mId); //cancel the error notificaction if necessary
                         Intent intent = new Intent(getApplicationContext(), DrawerActivity.class);
@@ -110,5 +112,10 @@ public class Main2Activity extends AppCompatActivity {
     void initRealm(){
         Realm.init(getApplicationContext());
         realm = Realm.getDefaultInstance();
+    }
+
+    void guarda_shared_preferences(){
+        //SharedPreferences remember = getSharedPreferences("remember", Context.MODE_PRIVATE);
+
     }
 }
