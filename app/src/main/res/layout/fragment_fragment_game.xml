@@ -190,6 +190,16 @@
                 android:src="@drawable/carta_abajo" />
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:textSize="24sp"
+            tools:textSize="30sp" />
+
     </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

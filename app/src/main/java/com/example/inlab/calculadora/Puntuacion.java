@@ -21,4 +21,12 @@ public class Puntuacion extends RealmObject{
     public void setPuntuacion(String puntuacion) {
         this.puntuacion = puntuacion;
     }
+
+    public String getPuntuacion() {
+        return puntuacion;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
 }

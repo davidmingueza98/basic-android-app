@@ -46,19 +46,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = editText_pw.getText().toString();
                 String confirm_password = editText_confirmpw.getText().toString();
                 if (password.equals(confirm_password) && !name.isEmpty() && !password.isEmpty() && !confirm_password.isEmpty()) {
-                    /*
-                    settings = getSharedPreferences(PREFS_NAME, 0);
-                    editor = settings.edit();
-                    editor.putString("username", name);
-                    editor.putString("password", password);
-                    editor.apply();
-                    */
                     Realm.init(getApplicationContext());
                     realm = Realm.getDefaultInstance();
                     userResults = realm.where(User.class).equalTo("username", name).findAll(); //search username in database
                     if (userResults.isEmpty()) {//empty=not results so it does not exist
                         if (error) error = false; //The registration is correct
-                        User rookie = new User(name,password);
+                        User rookie = new User(name,password,1000000, 1000000, "0/0/0");
                         saveUserToRealm(rookie); //store in the database
 
                         View.OnClickListener myOnClickListener = new View.OnClickListener() {

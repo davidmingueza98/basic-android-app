@@ -21,6 +21,12 @@
 
         <activity android:name=".RegisterActivity" />
         <activity android:name=".DrawerActivity" />
+
+        <service android:name=".MyService">
+            <intent-filter>
+                <action android:name="MYSERVICE"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

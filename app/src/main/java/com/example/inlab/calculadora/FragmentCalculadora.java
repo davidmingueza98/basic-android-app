@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -63,6 +64,7 @@ public class FragmentCalculadora extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment_calculadora, container, false);
         // Inflate the layout for this fragment
 
+        setHasOptionsMenu(true);
 
         button0 = view.findViewById(R.id.button16);
         button1 = view.findViewById(R.id.button11);
@@ -196,6 +198,7 @@ public class FragmentCalculadora extends Fragment {
                     sqrt = false;
                     negative=false;
                     first_negative = true;
+                    last = "";
                 }
                 else if (equal){
                     if(nan) {
@@ -240,7 +243,7 @@ public class FragmentCalculadora extends Fragment {
         button_sqrt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
-                if (first && !op && !number_put) {
+                if (first && !op && !number_put && !last.equals("-")) {
                     Button b = (Button) view; // Castear la vista del onClick a botón
                     textViewOp.append(b.getText());
                     sqrt = true;
@@ -288,6 +291,7 @@ public class FragmentCalculadora extends Fragment {
         return d;
     }
 
+    //para salvar el estado en un giro, que no se hace, pero habría que cambiarlo para que funcionase en un Fragment
 
     @Override
     public void onSaveInstanceState(Bundle outstate){
@@ -304,6 +308,25 @@ public class FragmentCalculadora extends Fragment {
             textViewOp.setText(savedInstanceState.getString("result"));
             textViewResult.setText(savedInstanceState.getString("result2"));
         }
+    }
+
+    private void showDialog(){
+        Bundle b = new Bundle();
+        MyDialog m = new MyDialog(); //para el dialog informativo
+        b.putString("texto", "Accumulative calculator. Square roots can't combine with other operations together. To call " +
+                "put a number on the screen and press the call button. Watch out with very long numbers");
+        m.setArguments(b);
+        m.show(getFragmentManager(),"hola"); //show del dialog
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        if (item.getItemId() == R.id.help) {
+            showDialog();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

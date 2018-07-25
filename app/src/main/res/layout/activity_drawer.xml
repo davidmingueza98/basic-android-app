@@ -25,7 +25,8 @@ tools:openDrawer="start">
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="Calculator" />
 
     </android.support.design.widget.AppBarLayout>
 

@@ -38,6 +38,8 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        consulta_shared_preferences();
+
         button_login = findViewById(R.id.button20);
         button_r = findViewById(R.id.button19);
         editText_name = findViewById(R.id.editText2);
@@ -54,7 +56,7 @@ public class Main2Activity extends AppCompatActivity {
                 if (!name.isEmpty() && !password.isEmpty()) {
                     userResults = realm.where(User.class).equalTo("username",name).findAll(); //search username in database
                     if (!userResults.isEmpty() && userResults.first().getPassword().equals(password)){ //if the password match then login
-                        guarda_shared_preferences();
+                        guarda_shared_preferences(name);
                         if(error) error = false; //The login is correct
                         if( mNotificationManager!= null) mNotificationManager.cancel(mId); //cancel the error notificaction if necessary
                         Intent intent = new Intent(getApplicationContext(), DrawerActivity.class);
@@ -114,8 +116,21 @@ public class Main2Activity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
     }
 
-    void guarda_shared_preferences(){
-        //SharedPreferences remember = getSharedPreferences("remember", Context.MODE_PRIVATE);
+    void guarda_shared_preferences(String name){
+        SharedPreferences check = getSharedPreferences("username",0);
+        SharedPreferences.Editor editor = check.edit();
+        editor.putString("user", name);
+        editor.apply();
+    }
 
+    void consulta_shared_preferences(){
+        SharedPreferences check = getSharedPreferences("username",Context.MODE_PRIVATE);
+        String prueba = check.getString("user","-");
+        if (!prueba.equals("-")){
+            Toast.makeText(getApplicationContext(),"Login with Shared Preferences", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), DrawerActivity.class);
+            intent.putExtra("user",prueba);
+            startActivity(intent);
+        }
     }
 }
