@@ -40,6 +40,7 @@ public class FragmentCalculadora extends Fragment {
 
     boolean negative = false;
     boolean point = false;
+    boolean allow_coma = false;
 
     boolean sqrt = false;
 
@@ -104,7 +105,10 @@ public class FragmentCalculadora extends Fragment {
                 if (first && number.equals("0")) first_zero = true;
 
                 if(!first_zero || first) {
-                    if (first) first = false;
+                    if (first) {
+                        first = false;
+                        allow_coma=true;
+                    }
                     textViewOp.append(b.getText());
                     num2 += number; // Leer el texto de un botón
 
@@ -120,7 +124,6 @@ public class FragmentCalculadora extends Fragment {
                         //textViewResult.setText(String.valueOf(d2));
                         textViewResult.setText(String.format("%.6f", d));
                         equal = true;
-                        point = false;
                     }
                 }
             }
@@ -145,6 +148,9 @@ public class FragmentCalculadora extends Fragment {
             public void onClick(View view) {
                 Button b = (Button) view; // Castear la vista del onClick a botón
                 String aux = b.getText().toString(); // Leer el texto de un botón
+                allow_coma=false; //despues de este boton nunca va la coma
+                point=false;
+                //caso pongo un menos al principio
                 if(!number_put && aux.equals("-") && !last.equals("-")){
                     num2 = "-";
                     textViewOp.append(b.getText());
@@ -190,6 +196,7 @@ public class FragmentCalculadora extends Fragment {
                     operation = "";
                     number_put = false;
                     point = false;
+                    allow_coma=false;
                     equal = false;
                     op=false;
                     nan = false;
@@ -230,10 +237,11 @@ public class FragmentCalculadora extends Fragment {
         button_coma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
-                if(!point && number_put){
+                if(!point && number_put && allow_coma){
                     if (first_zero) first_zero=false;
                     if (nan) nan = false;
                     point = true;
+                    allow_coma = false; //no pongas dos comas seguidas
                     textViewOp.append(".");
                     num2 += '.';
                 }
