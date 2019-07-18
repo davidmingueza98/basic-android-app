@@ -104,7 +104,10 @@ public class FragmentGame extends Fragment {
 
         final Map<ImageView, Integer> Assignation = new HashMap<ImageView, Integer>(); //a cada imagen le asociamos un identificador de foto
         final Map<ImageView, Boolean> Volteada = new HashMap<ImageView, Boolean>();
-        final int a[] = {R.drawable.hitler, R.drawable.kappa, R.drawable.patricio, R.drawable.putin, R.drawable.rajoy, R.drawable.stalin, R.drawable.trump, R.drawable.willyrex};
+        final int a[] = {R.drawable.hitler, R.drawable.hitler, R.drawable.kappa, R.drawable.kappa,
+                        R.drawable.patricio, R.drawable.patricio, R.drawable.putin, R.drawable.putin,
+                        R.drawable.rajoy, R.drawable.rajoy, R.drawable.stalin, R.drawable.stalin,
+                        R.drawable.trump, R.drawable.trump, R.drawable.willyrex, R.drawable.willyrex};
 
         shuffleArray(a);
         Assignation.put(imageView0,a[0]);
@@ -115,16 +118,14 @@ public class FragmentGame extends Fragment {
         Assignation.put(imageView5,a[5]);
         Assignation.put(imageView6,a[6]);
         Assignation.put(imageView7,a[7]);
-
-        shuffleArray(a);
-        Assignation.put(imageView8,a[0]);
-        Assignation.put(imageView9,a[1]);
-        Assignation.put(imageView10,a[2]);
-        Assignation.put(imageView11,a[3]);
-        Assignation.put(imageView12,a[4]);
-        Assignation.put(imageView13,a[5]);
-        Assignation.put(imageView14,a[6]);
-        Assignation.put(imageView15,a[7]);
+        Assignation.put(imageView8,a[8]);
+        Assignation.put(imageView9,a[9]);
+        Assignation.put(imageView10,a[10]);
+        Assignation.put(imageView11,a[11]);
+        Assignation.put(imageView12,a[12]);
+        Assignation.put(imageView13,a[13]);
+        Assignation.put(imageView14,a[14]);
+        Assignation.put(imageView15,a[15]);
 
         Volteada.put(imageView0,false);
         Volteada.put(imageView1,false);

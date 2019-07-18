@@ -29,6 +29,8 @@ public class FragmentCalculadora extends Fragment {
 
     //Intent intent = new Intent(Intent: ACTION_DIAL, Uri.parse(NUMERO_TELEFONO)).
 
+    //control booleans
+
     boolean equal = false;
     boolean op = false;
     boolean number_put = false;
@@ -39,6 +41,7 @@ public class FragmentCalculadora extends Fragment {
     boolean first = true;
 
     boolean negative = false;
+    boolean allow_negative = true;
     boolean point = false;
     boolean allow_coma = false;
 
@@ -123,6 +126,7 @@ public class FragmentCalculadora extends Fragment {
                         //int d2 = d.intValue();
                         //textViewResult.setText(String.valueOf(d2));
                         textViewResult.setText(String.format("%.6f", d));
+                        allow_negative = false;
                         equal = true;
                     }
                 }
@@ -142,7 +146,7 @@ public class FragmentCalculadora extends Fragment {
 
 
 
-
+        // OnClick operator button except sqrt
         View.OnClickListener appendOperation = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,13 +155,13 @@ public class FragmentCalculadora extends Fragment {
                 allow_coma=false; //despues de este boton nunca va la coma
                 point=false;
                 //caso pongo un menos al principio
-                if(!number_put && aux.equals("-") && !last.equals("-")){
+                if(!number_put && aux.equals("-") && !last.equals("-") && allow_negative){
                     num2 = "-";
                     textViewOp.append(b.getText());
                     first = true;
                 }
-                else if (number_put && !sqrt && (!op || (aux.equals("-") && !last.equals("-")))){
-                    if (op && aux.equals("-")) {
+                else if (number_put && !sqrt && (!op || (aux.equals("-") && !last.equals("-") && allow_negative))){
+                    if (op && aux.equals("-") && allow_negative) {
                         negative = true;
                         textViewOp.append(b.getText());
                     }
@@ -181,7 +185,7 @@ public class FragmentCalculadora extends Fragment {
         button_mult.setOnClickListener(appendOperation);
         button_pow.setOnClickListener(appendOperation);
 
-
+        //Clear and equal
         View.OnClickListener appendClear = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -197,6 +201,7 @@ public class FragmentCalculadora extends Fragment {
                     number_put = false;
                     point = false;
                     allow_coma=false;
+                    allow_negative=true;
                     equal = false;
                     op=false;
                     nan = false;
@@ -209,7 +214,7 @@ public class FragmentCalculadora extends Fragment {
                 }
                 else if (equal){
                     if(nan) {
-                        String error = "No se puede dividir entre 0, presione AC";
+                        String error = "Division by 0, press AC";
                         textViewResult.setText(error);
                     }
                     else {
@@ -221,6 +226,7 @@ public class FragmentCalculadora extends Fragment {
                         point = false;
                         sqrt = false;
                         first_negative = true;
+                        allow_negative = true;
                         operation = "";
 
                         if (d == 0) first_zero = true;
@@ -234,6 +240,7 @@ public class FragmentCalculadora extends Fragment {
         button_del.setOnClickListener(appendClear);
         button_eq.setOnClickListener(appendClear);
 
+        // Point button
         button_coma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
@@ -248,6 +255,7 @@ public class FragmentCalculadora extends Fragment {
             }
         });
 
+        //Sqrt button
         button_sqrt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
@@ -259,6 +267,7 @@ public class FragmentCalculadora extends Fragment {
             }
         });
 
+        //Call button
         call.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
