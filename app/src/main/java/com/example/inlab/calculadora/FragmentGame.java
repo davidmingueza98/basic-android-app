@@ -104,7 +104,7 @@ public class FragmentGame extends Fragment {
 
         final Map<ImageView, Integer> Assignation = new HashMap<ImageView, Integer>(); //a cada imagen le asociamos un identificador de foto
         final Map<ImageView, Boolean> Volteada = new HashMap<ImageView, Boolean>();
-        final int a[] = {R.drawable.hitler, R.drawable.hitler, R.drawable.kappa, R.drawable.kappa,
+        final int a[] = {R.drawable.alonso, R.drawable.alonso, R.drawable.kappa, R.drawable.kappa,
                         R.drawable.patricio, R.drawable.patricio, R.drawable.putin, R.drawable.putin,
                         R.drawable.rajoy, R.drawable.rajoy, R.drawable.stalin, R.drawable.stalin,
                         R.drawable.trump, R.drawable.trump, R.drawable.willyrex, R.drawable.willyrex};
@@ -208,12 +208,8 @@ public class FragmentGame extends Fragment {
         imageView15.setOnClickListener(flipCard);
 
 
-
-
-
-
         /*
-        imageView0.setImageResource(R.drawable.hitler);
+        imageView0.setImageResource(R.drawable.alonso);
         imageView1.setImageResource(R.drawable.stalin);
         imageView2.setImageResource(R.drawable.willyrex);
         imageView3.setImageResource(R.drawable.trump);
