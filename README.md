@@ -16,20 +16,13 @@ The app provides several features:
 - **Ranking**: Shows a list with the users that have completed the game and their score ordered.
 - **Music reproducer**: Reproduces a static song stored in the app.
 
-![Game screenshot](readme-assets/game.jpg?raw=true "Game View")
-
 ## Development
 First clone the repo, then open the project in [Android Studio](https://developer.android.com/studio).
 
 It is recommended to run and debug the app in a physical Android device instead of the emulator.
 
 ## Screenshots
-
-Navigation overview
-![Navigation screenshot](readme-assets/game.jpg?raw=true "Navigation Screenshot")
-
-Game ranking
-![Ranking screenshot](readme-assets/game.jpg?raw=true "Ranking Screenshot")
-
-Music reproducer
-![Music screenshot](readme-assets/game.jpg?raw=true "Music Reproducer")
+![Navigation screenshot](readme-assets/navigation.jpg?raw=true "Navigation Screenshot")
+![Game screenshot](readme-assets/game.jpg?raw=true "Game Screenshot")
+![Ranking screenshot](readme-assets/ranking.jpg?raw=true "Ranking Screenshot")
+![Music screenshot](readme-assets/music.jpg?raw=true "Music Screenshot")
